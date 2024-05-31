@@ -28,7 +28,7 @@ click.rich_click.COMMAND_GROUPS = {
 
 help_config = click.RichHelpConfiguration(
     show_arguments=True,
-    option_groups={"damply": [{"name": "Arguments", "panel_styles": {"box": "ASCII"}}]}
+    option_groups={"damply": [{"name": "Arguments", "panel_styles": {"box": "ASCII"}}]},
 )
 
 
@@ -48,7 +48,7 @@ def version() -> None:
 
 @cli.command(context_settings={"help_option_names": ["-h", "--help"]})
 @click.argument(
-    "directory", 
+    "directory",
     type=click.Path(
         exists=True,
         path_type=Path,
@@ -80,7 +80,7 @@ def view(directory: Path) -> None:
 
     console = Console()
 
-    table = Table.grid(padding=1, pad_edge=True, expand = True)
+    table = Table.grid(padding=1, pad_edge=True, expand=True)
     table.title = f"[bold]Metadata for {metadata.path.name}[/bold]"
     table.add_column("Field", justify="right", style="cyan")
     table.add_column("Value", style="yellow")
@@ -95,7 +95,7 @@ def view(directory: Path) -> None:
 
 @cli.command(context_settings={"help_option_names": ["-h", "--help"]})
 @click.argument(
-    "path", 
+    "path",
     type=click.Path(
         exists=True,
         path_type=Path,
@@ -109,8 +109,11 @@ def view(directory: Path) -> None:
 def whose(path: Path) -> None:
     """Print the owner of the file or directory."""
     result = whose_util.get_file_owner_full_name(path)
-    
-    print(f"The owner of [bold magenta]{path}[/bold magenta] is [bold cyan]{result}[/bold cyan]")
+
+    print(
+        f"The owner of [bold magenta]{path}[/bold magenta] is [bold cyan]{result}[/bold cyan]"
+    )
+
 
 def hello() -> Literal["Hello, World!"]:
     return "Hello, World!"
