@@ -2,6 +2,13 @@
 
 
 
+## v0.1.1 (2024-05-31)
+
+### Fix
+
+* fix: some pypi issues ([`c6f810e`](https://github.com/jjjermiah/damply/commit/c6f810ea4859a45b4d9f1b3432cca1f45dc29f30))
+
+
 ## v0.1.0 (2024-05-31)
 
 ### Feature
