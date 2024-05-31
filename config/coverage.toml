@@ -1,4 +1,4 @@
 [tool.coverage.run]
-
+omit = ["src/damply/cli.py"]
 
 [tool.coverage.report]

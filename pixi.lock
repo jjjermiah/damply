@@ -2868,9 +2868,9 @@ packages:
   timestamp: 1715044173081
 - kind: pypi
   name: damply
-  version: 0.1.1
+  version: 0.2.0
   path: .
-  sha256: 1a2c80353906960437444e260707db9e570316e375524ec4b22a9648101cf7f5
+  sha256: 3630ee5f39a1b9867c7b8c4922888289e61be29a7d0df4e9248a09fbebee3e84
   requires_dist:
   - rich
   - rich-click
@@ -5876,24 +5876,8 @@ packages:
 - kind: pypi
   name: pydantic-core
   version: 2.18.3
-  url: https://files.pythonhosted.org/packages/94/bc/e5d1938f36cad75525e923ecfef6f544970d4f14800716728ea5555fc574/pydantic_core-2.18.3-cp312-cp312-macosx_11_0_arm64.whl
-  sha256: 0bee9bb305a562f8b9271855afb6ce00223f545de3d68560b3c1649c7c5295e9
-  requires_dist:
-  - typing-extensions>=4.6.0,!=4.7.0
-  requires_python: '>=3.8'
-- kind: pypi
-  name: pydantic-core
-  version: 2.18.3
   url: https://files.pythonhosted.org/packages/e3/5c/477dac00c0d6d34921fec2507ae6aea2cd7c84072eab1dca5bcbbf86c4a2/pydantic_core-2.18.3-cp312-none-win_amd64.whl
   sha256: 2c8333f6e934733483c7eddffdb094c143b9463d2af7e6bd85ebcb2d4a1b82c6
-  requires_dist:
-  - typing-extensions>=4.6.0,!=4.7.0
-  requires_python: '>=3.8'
-- kind: pypi
-  name: pydantic-core
-  version: 2.18.3
-  url: https://files.pythonhosted.org/packages/c2/9f/e2f17d24aee5406a8e8e57784fa737abde9ac538d18028b523268796bcce/pydantic_core-2.18.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  sha256: 24b214b7ee3bd3b865e963dbed0f8bc5375f49449d70e8d407b567af3222aae4
   requires_dist:
   - typing-extensions>=4.6.0,!=4.7.0
   requires_python: '>=3.8'
@@ -5908,16 +5892,16 @@ packages:
 - kind: pypi
   name: pydantic-core
   version: 2.18.3
-  url: https://files.pythonhosted.org/packages/e2/67/85ee8a54220139159b14088dd40f4d43e60822f8d64bb2a5b9b04d673bd2/pydantic_core-2.18.3-cp310-none-win_amd64.whl
-  sha256: 45e4ffbae34f7ae30d0047697e724e534a7ec0a82ef9994b7913a412c21462a0
+  url: https://files.pythonhosted.org/packages/94/bc/e5d1938f36cad75525e923ecfef6f544970d4f14800716728ea5555fc574/pydantic_core-2.18.3-cp312-cp312-macosx_11_0_arm64.whl
+  sha256: 0bee9bb305a562f8b9271855afb6ce00223f545de3d68560b3c1649c7c5295e9
   requires_dist:
   - typing-extensions>=4.6.0,!=4.7.0
   requires_python: '>=3.8'
 - kind: pypi
   name: pydantic-core
   version: 2.18.3
-  url: https://files.pythonhosted.org/packages/7d/3d/1640253d1da28910b02b00bf6af4a80f1de27f561879128f76bbacb8436d/pydantic_core-2.18.3-cp310-cp310-macosx_11_0_arm64.whl
-  sha256: 37b40c05ced1ba4218b14986fe6f283d22e1ae2ff4c8e28881a70fb81fbfcda7
+  url: https://files.pythonhosted.org/packages/c2/9f/e2f17d24aee5406a8e8e57784fa737abde9ac538d18028b523268796bcce/pydantic_core-2.18.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  sha256: 24b214b7ee3bd3b865e963dbed0f8bc5375f49449d70e8d407b567af3222aae4
   requires_dist:
   - typing-extensions>=4.6.0,!=4.7.0
   requires_python: '>=3.8'
@@ -5940,6 +5924,30 @@ packages:
 - kind: pypi
   name: pydantic-core
   version: 2.18.3
+  url: https://files.pythonhosted.org/packages/e2/67/85ee8a54220139159b14088dd40f4d43e60822f8d64bb2a5b9b04d673bd2/pydantic_core-2.18.3-cp310-none-win_amd64.whl
+  sha256: 45e4ffbae34f7ae30d0047697e724e534a7ec0a82ef9994b7913a412c21462a0
+  requires_dist:
+  - typing-extensions>=4.6.0,!=4.7.0
+  requires_python: '>=3.8'
+- kind: pypi
+  name: pydantic-core
+  version: 2.18.3
+  url: https://files.pythonhosted.org/packages/7d/3d/1640253d1da28910b02b00bf6af4a80f1de27f561879128f76bbacb8436d/pydantic_core-2.18.3-cp310-cp310-macosx_11_0_arm64.whl
+  sha256: 37b40c05ced1ba4218b14986fe6f283d22e1ae2ff4c8e28881a70fb81fbfcda7
+  requires_dist:
+  - typing-extensions>=4.6.0,!=4.7.0
+  requires_python: '>=3.8'
+- kind: pypi
+  name: pydantic-core
+  version: 2.18.3
+  url: https://files.pythonhosted.org/packages/d2/c7/e01cb2017c4b7b274258694f73e8bbbb0988a28b49802e569d1d9bfd51cb/pydantic_core-2.18.3-cp311-none-win_amd64.whl
+  sha256: 58ff8631dbab6c7c982e6425da8347108449321f61fe427c52ddfadd66642af7
+  requires_dist:
+  - typing-extensions>=4.6.0,!=4.7.0
+  requires_python: '>=3.8'
+- kind: pypi
+  name: pydantic-core
+  version: 2.18.3
   url: https://files.pythonhosted.org/packages/4a/cf/2847167bab3e7676ba6f0b49963ba04112b1e4281d8c70e302c2fd29e08c/pydantic_core-2.18.3-cp311-cp311-macosx_10_12_x86_64.whl
   sha256: b9ebe8231726c49518b16b237b9fe0d7d361dd221302af511a83d4ada01183ab
   requires_dist:
@@ -5950,14 +5958,6 @@ packages:
   version: 2.18.3
   url: https://files.pythonhosted.org/packages/0c/84/a14457b3cb1ec1f5d1567395abe11ab420dd76733bc79dd0124a874e9eac/pydantic_core-2.18.3-cp311-cp311-macosx_11_0_arm64.whl
   sha256: b8e20e15d18bf7dbb453be78a2d858f946f5cdf06c5072453dace00ab652e2b2
-  requires_dist:
-  - typing-extensions>=4.6.0,!=4.7.0
-  requires_python: '>=3.8'
-- kind: pypi
-  name: pydantic-core
-  version: 2.18.3
-  url: https://files.pythonhosted.org/packages/d2/c7/e01cb2017c4b7b274258694f73e8bbbb0988a28b49802e569d1d9bfd51cb/pydantic_core-2.18.3-cp311-none-win_amd64.whl
-  sha256: 58ff8631dbab6c7c982e6425da8347108449321f61fe427c52ddfadd66642af7
   requires_dist:
   - typing-extensions>=4.6.0,!=4.7.0
   requires_python: '>=3.8'
