@@ -78,18 +78,13 @@ def view(directory: Path) -> None:
 
     console = Console()
 
-    table = Table.grid(padding=1, pad_edge=True)
+    table = Table.grid(padding=1, pad_edge=True, expand = True)
     table.title = f"[bold]Metadata for {metadata.path.name}[/bold]"
     table.add_column("Field", justify="right", style="cyan")
     table.add_column("Value", style="yellow")
 
     for field, value in metadata.fields.items():
         table.add_row(field, value)
-
-    # table.add_row("Content", Markdown(metadata.content))
-
-    # if metadata.logs:
-    #     table.add_row("Logs", "\n".join(metadata.logs))
 
     console.print(table)
     console.print(Markdown(metadata.content))

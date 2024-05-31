@@ -6,10 +6,13 @@ from pathlib import Path
 from typing import Type
 
 from rich import print
+import rich.repr
 
 def is_file_writable(file_path: Path) -> bool:
     import os
+
     return file_path.exists() and os.access(file_path, os.W_OK)
+
 
 @dataclass
 class DMPMetadata:
@@ -41,7 +44,6 @@ class DMPMetadata:
     def log_change(self, description: str) -> None:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         self.logs.append(f"{timestamp}: {description}")
-
 
     def write_to_file(self, newpath: Path | None = None) -> None:
         newpath = newpath or self.path.with_name(self.path.stem + ".dmp")
@@ -153,6 +155,12 @@ class DMPMetadata:
     def is_readable(self) -> bool:
         return "r" in self.permissions
 
+    def __rich_repr__(self) -> rich.repr.Result:
+        yield "path", self.path
+        yield "fields", self.fields
+        yield "content", self.content
+        yield "permissions", self.permissions
+        yield "logs", self.logs
 
 if __name__ == "__main__":
     # test the function
@@ -168,7 +176,6 @@ if __name__ == "__main__":
         dmp = DMPMetadata.from_path(file)
         print()
         dmps.append(dmp)
-
 
     print(dmps[3])
     dmps[3].log_change("Added a log entry.")
