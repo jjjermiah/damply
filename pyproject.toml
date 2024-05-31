@@ -40,10 +40,6 @@ issues = "https://github.com/jjjermiah/damply/issues"
 [project.scripts]
 dmp = "damply.cli:cli"
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
 #--------------------------------------------------------------------------------------------------#
 ############################################## PIXI ################################################
 #__________________________________________________________________________________________________#
@@ -153,6 +149,10 @@ release = "semantic-release -c config/releaserc.toml version"
 [tool.pixi.feature.build.dependencies]
 hatch = "*"
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [tool.pixi.feature.build.tasks]
 # Builds the package
 build = { cmd = [
@@ -167,7 +167,7 @@ build = { cmd = [
   "dist/*",
 ], env = { HATCH_CONFIG = "config/hatch.toml" } }
 
-# Publishes the package to the main repository, depends on the build task
+# Publishes the package to the main PYPI repository, depends on the build task
 publish-pypi = { cmd = [
   "hatch",
   "publish",
@@ -176,14 +176,19 @@ publish-pypi = { cmd = [
   "main",
 ], inputs = [
   "dist/*",
-  "config/hatch.toml",
 ], depends-on = [
   "build",
 ], env = { HATCH_CONFIG = "config/hatch.toml" } }
 
-publish-test = { cmd = "hatch publish --yes --repo test", inputs = [
+# Publishes the package to the TEST-PYPI repository, depends on the build task
+publish-test = { cmd = [
+  "hatch",
+  "publish",
+  "--yes",
+  "--repo",
+  "test",
+], inputs = [
   "dist/*",
-  "config/hatch.toml",
 ], depends-on = [
   "build",
 ], env = { HATCH_CONFIG = "config/hatch.toml" } }

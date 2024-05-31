@@ -9,10 +9,6 @@ extend-exclude = [
   "docs/*",
   "tests/*",
   ".pixi/",
-  "src/damply/textual/*.py",
-  "src/damply/subcommands/*.py",
-  "src/damply/sandbox/*.py",
-  "src/damply/*.py"
   ]
 
 extend-include = []
