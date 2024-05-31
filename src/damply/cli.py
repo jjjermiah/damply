@@ -7,3 +7,6 @@ import rich_click as click
 def cli(name: str):
     """Simple CLI that greets NAME for a total of COUNT times."""
     print(f"Hello, {name}!")
+
+def hello():
+    return "Hello, World!"
