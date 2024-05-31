@@ -6,8 +6,6 @@ from pathlib import Path
 from typing import Type
 
 import rich.repr
-from rich import print
-
 
 def is_file_writable(file_path: Path) -> bool:
     import os
