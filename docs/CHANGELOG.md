@@ -2,6 +2,21 @@
 
 
 
+## v0.4.1 (2024-05-31)
+
+### Chore
+
+* chore: Update navigation links in mkdocs.yaml ([`931524b`](https://github.com/jjjermiah/damply/commit/931524b39f8ca9edb971c8a43b84dc858b4a2de8))
+
+### Fix
+
+* fix: Update metadata table title in cli.py ([`a63c36b`](https://github.com/jjjermiah/damply/commit/a63c36bba26d880abf433cf06690faecb1537d3d))
+
+* fix: version ([`ecefaaf`](https://github.com/jjjermiah/damply/commit/ecefaafab444f70ace8a8185240d6577fe4db0a3))
+
+* fix: format ([`e153b30`](https://github.com/jjjermiah/damply/commit/e153b30f32108b0a9750f1a4b0c7e0b00116c152))
+
+
 ## v0.4.0 (2024-05-31)
 
 ### Feature
