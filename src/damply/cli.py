@@ -1,12 +1,11 @@
-from typing import Literal
-
 from pathlib import Path
-from damply.utils import whose as whose_util
+from typing import Literal
 
 import rich_click as click
 from rich import print
-from damply.metadata import DMPMetadata
 
+from damply.metadata import DMPMetadata
+from damply.utils import whose as whose_util
 
 click.rich_click.OPTION_GROUPS = {
     "damply": [
@@ -75,8 +74,8 @@ def view(directory: Path) -> None:
     metadata = DMPMetadata.from_path(readme)
 
     from rich.console import Console
-    from rich.table import Table
     from rich.markdown import Markdown
+    from rich.table import Table
 
     console = Console()
 

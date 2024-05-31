@@ -1,7 +1,6 @@
 import os
-from pwd import getpwuid
 from pathlib import Path
-
+from pwd import getpwuid
 
 def get_file_owner_full_name(file_path: Path):
     try:
