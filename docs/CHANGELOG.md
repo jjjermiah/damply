@@ -2,6 +2,21 @@
 
 
 
+## v0.4.0 (2024-05-31)
+
+### Feature
+
+* feat: add cli whose ([`b15ec32`](https://github.com/jjjermiah/damply/commit/b15ec32b551533aab892b3b3227e2091c643dfe1))
+
+* feat: Update CLI help messages and add &#39;whose&#39; command ([`620f209`](https://github.com/jjjermiah/damply/commit/620f209656ab91d5f8ae4e11608eaa6aef05e3f9))
+
+### Fix
+
+* fix: Refactor get_file_owner_full_name function for improved error handling and platform compatibility ([`f4fca58`](https://github.com/jjjermiah/damply/commit/f4fca58d63e4667f8c3fc60b51776a038757c669))
+
+* fix: lint ([`64944d3`](https://github.com/jjjermiah/damply/commit/64944d3025cc20721aa5415c882b42e737daa3da))
+
+
 ## v0.3.0 (2024-05-31)
 
 ### Chore
