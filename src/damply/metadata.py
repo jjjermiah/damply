@@ -4,6 +4,7 @@ import stat
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Type
+
 from rich import print
 
 def is_file_writable(file_path: Path) -> bool:
@@ -44,7 +45,7 @@ class DMPMetadata:
 
     def write_to_file(self, newpath: Path | None = None) -> None:
         newpath = newpath or self.path.with_name(self.path.stem + ".dmp")
-        
+
         if not is_file_writable(newpath):
             raise PermissionError(f"{newpath} is not writable: {self.permissions}")
 
@@ -164,18 +165,13 @@ if __name__ == "__main__":
 
     dmps = []
     for file in all_files:
-        try:
-            dmp = DMPMetadata.from_path(file)
-            # print(dmp)
-            print()
-            dmps.append(dmp)
-        except Exception as e:
-            print(f"Error: {e}")
-            print()
+        dmp = DMPMetadata.from_path(file)
+        print()
+        dmps.append(dmp)
+
 
     print(dmps[3])
     dmps[3].log_change("Added a log entry.")
     dmps[3].log_change("Added another log entry.")
     print(dmps[3])
     dmps[3].write_to_file()
-    # [dmp.write_to_file() for dmp in dmps]
