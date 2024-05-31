@@ -46,6 +46,9 @@ def test_write_to_file():
 
     newpath = Path(tmpdirname) / "test.dmp"
 
+    # create the file with all permissions
+    newpath.touch()
+    
     metadata.write_to_file(newpath)
 
     with newpath.open(mode="r") as file:
