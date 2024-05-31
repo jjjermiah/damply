@@ -2,6 +2,19 @@
 
 
 
+## v0.6.0 (2024-05-31)
+
+### Feature
+
+* feat: major refactoring of cli ([`5998541`](https://github.com/jjjermiah/damply/commit/5998541bf75be1e7d2fcf8536d1d230dae4919bb))
+
+### Fix
+
+* fix: lint ([`b0abdf4`](https://github.com/jjjermiah/damply/commit/b0abdf46b416c20f0fb148dd59fadc70761a8815))
+
+* fix: lock ([`4168366`](https://github.com/jjjermiah/damply/commit/41683662fe792097f017e70013c73d38ded5bf34))
+
+
 ## v0.5.0 (2024-05-31)
 
 ### Chore
