@@ -21,6 +21,10 @@ DaMPly (Data Management Plan) is a Python module designed to streamline the proc
 This tool is particularly useful for archiving project directories while leaving behind a README file to provide context and instructions for future users.
 
 ## Features
+
+View a project's `README`, with emphasized fields that follow the Data Management Plan (DMP) guidelines.
+![img](assets/screenshot.png)
+
 TODO
 - [ ] README Check: Verifies the presence of a README file in the specified directory.
 - [ ] User Interaction: Prompts the user for necessary information to enhance the archiving process.
