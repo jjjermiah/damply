@@ -1,10 +1,12 @@
 from typing import Literal
 
 from pathlib import Path
+from damply.utils import whose as whose_util
 
 import rich_click as click
 from rich import print
 from damply.metadata import DMPMetadata
+
 
 click.rich_click.OPTION_GROUPS = {
     "damply": [
@@ -19,7 +21,7 @@ click.rich_click.COMMAND_GROUPS = {
     "damply": [
         {
             "name": "Subcommands",
-            "commands": ["version", "view"],
+            "commands": ["version", "view", "whose"],
         }
     ]
 }
@@ -32,7 +34,7 @@ help_config = click.RichHelpConfiguration(
 
 @click.group(name="damply", context_settings={"help_option_names": ["-h", "--help"]})
 def cli() -> None:
-    """damply tool"""
+    """A tool to interact with systems implementing the Data Management Plan (DMP) standard."""
     pass
 
 
@@ -58,7 +60,7 @@ def version() -> None:
 )
 @click.rich_config(help_config=help_config)
 def view(directory: Path) -> None:
-    """Create a DMP file from a directory."""
+    """View the DMP Metadata of a valid DMP Directory."""
     readmes = [f for f in directory.glob("README*") if f.is_file()]
 
     if len(readmes) == 0:
@@ -90,6 +92,25 @@ def view(directory: Path) -> None:
     console.print(Markdown(metadata.content))
     console.print(Markdown("\n".join(metadata.logs)))
 
+
+@cli.command(context_settings={"help_option_names": ["-h", "--help"]})
+@click.argument(
+    "path", 
+    type=click.Path(
+        exists=True,
+        path_type=Path,
+        file_okay=True,
+        dir_okay=True,
+        readable=True,
+    ),
+    default=Path().cwd(),
+)
+@click.rich_config(help_config=help_config)
+def whose(path: Path) -> None:
+    """Print the owner of the file or directory."""
+    result = whose_util.get_file_owner_full_name(path)
+    
+    print(f"The owner of [bold magenta]{path}[/bold magenta] is [bold cyan]{result}[/bold cyan]")
 
 def hello() -> Literal["Hello, World!"]:
     return "Hello, World!"
