@@ -2,6 +2,19 @@
 
 
 
+## v0.3.0 (2024-05-31)
+
+### Chore
+
+* chore: Delete config/.pypackage-builder-answers.yml ([`a04cabd`](https://github.com/jjjermiah/damply/commit/a04cabd468901e3b47e236a31d9eb867feea7719))
+
+### Feature
+
+* feat: add cli tool ([`077e52b`](https://github.com/jjjermiah/damply/commit/077e52bf1e3c529685a631aee6978e59676b0165))
+
+* feat: add cli ([`1e825d1`](https://github.com/jjjermiah/damply/commit/1e825d1e71293cb46fcb8abe6498b5a695982e39))
+
+
 ## v0.2.0 (2024-05-31)
 
 ### Feature
