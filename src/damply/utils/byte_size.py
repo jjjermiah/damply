@@ -23,10 +23,10 @@ class ByteSize(int):
         Determine the most appropriate readable representation.
 
         """
-        *suffixes, last = self._suffixes
+        first, *suffixes = self._suffixes
         suffix = next(
-            (suffix for suffix in suffixes if 1 < getattr(self, suffix) < self._KB),
-            last,
+            (suffix for suffix in suffixes if 1 <= getattr(self, suffix) <= self._KB),
+            first,
         )
         return suffix, getattr(self, suffix)
 
