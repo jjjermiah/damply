@@ -127,16 +127,16 @@ mkdocs = "*"
 
 [tool.pixi.feature.docs.tasks.doc-build]
 cmd = "mkdocs build -f config/mkdocs.yaml"
-inputs = ["docs"]
+inputs = ["docs", "config/mkdocs.yaml"]
 outputs = ["site"]
 
 [tool.pixi.feature.docs.tasks.doc-serve]
 cmd = "mkdocs serve -f config/mkdocs.yaml"
-inputs = ["docs"]
+inputs = ["docs", "config/mkdocs.yaml"]
 
 [tool.pixi.feature.docs.tasks.doc-deploy]
 cmd = "mkdocs gh-deploy -f config/mkdocs.yaml --force"
-inputs = ["docs"]
+inputs = ["docs", "config/mkdocs.yaml"]
 
 #################################### RELEASE & BUILD ###############################################
 [tool.pixi.feature.release.dependencies]

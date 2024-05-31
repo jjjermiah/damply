@@ -80,7 +80,7 @@ def view(directory: Path) -> None:
     console = Console()
 
     table = Table.grid(padding=1, pad_edge=True, expand=True)
-    table.title = f'[bold]Metadata for {metadata.path.name}[/bold]'
+    table.title = f'[bold]Metadata for {metadata.path.absolute()}[/bold]'
     table.add_column('Field', justify='right', style='cyan')
     table.add_column('Value', style='yellow')
 
