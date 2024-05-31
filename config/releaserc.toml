@@ -1,5 +1,5 @@
 [semantic_release]
-version_variables = ["src/damply/__init__.py:version"]
+version_variables = ["src/damply/__init__.py:__version__"]
 version_toml = [
   "pyproject.toml:project.version",
   "pyproject.toml:tool.pixi.version",
