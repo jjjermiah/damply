@@ -19,7 +19,7 @@ dependencies = [
   "pydantic",
   "textual",
   "trogon",
-  "dataclasses-json",
+  "dataclasses-json", "click-didyoumean",
 ]
 classifiers = [
   "License :: OSI Approved :: MIT License",
@@ -39,6 +39,10 @@ issues = "https://github.com/jjjermiah/damply/issues"
 
 [project.scripts]
 dmp = "damply.cli:cli"
+
+[project.optional-dependencies]
+style = ["rich-codex"]
+
 
 #--------------------------------------------------------------------------------------------------#
 ############################################## PIXI ################################################
