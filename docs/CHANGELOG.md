@@ -2,6 +2,19 @@
 
 
 
+## v0.2.0 (2024-05-31)
+
+### Feature
+
+* feat: Refactor metadata.py for improved readability and maintainability ([`cf909e0`](https://github.com/jjjermiah/damply/commit/cf909e0f1824fdc9275171d10c3c2a87049521e7))
+
+* feat: add tests and major class ([`569177b`](https://github.com/jjjermiah/damply/commit/569177b476047cadb22ae84d0eeb92ad1fb370ea))
+
+### Fix
+
+* fix: tests so it makes file ([`69d4e54`](https://github.com/jjjermiah/damply/commit/69d4e54ea76ef75dde242e28261ee79b60bc2093))
+
+
 ## v0.1.1 (2024-05-31)
 
 ### Fix

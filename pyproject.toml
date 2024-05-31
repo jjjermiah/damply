@@ -3,7 +3,7 @@
 #__________________________________________________________________________________________________#
 [project]
 name = "damply"
-version = "0.1.1"
+version = "0.2.0"
 description = "A Quick Tool For Sorting Dicom Files"
 license = "MIT"
 readme = "README.md"
