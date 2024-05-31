@@ -2,6 +2,19 @@
 
 
 
+## v0.5.0 (2024-05-31)
+
+### Chore
+
+* chore: add tests ([`79044ef`](https://github.com/jjjermiah/damply/commit/79044effb782111c2b1cbccfc21b4a77431d9f5c))
+
+### Feature
+
+* feat: add whose and file size ([`04772d4`](https://github.com/jjjermiah/damply/commit/04772d49bb4a4ae7656dbb3bb1931a3c76ec544a))
+
+* feat: Add lazy loading for images in README view ([`7d1e053`](https://github.com/jjjermiah/damply/commit/7d1e053b18f63fbc8c27e6abf813b67eb7f3955d))
+
+
 ## v0.4.1 (2024-05-31)
 
 ### Chore
