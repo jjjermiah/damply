@@ -1,0 +1,8 @@
+
+[version]
+
+[build]
+directory = "dist"
+
+[build.targets]
+wheel = { packages = ["../src/damply"] }
