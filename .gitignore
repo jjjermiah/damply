@@ -169,10 +169,5 @@ src/testmypixipkg/__pycache__/__init__.cpython-312.pyc
 *./**/.pyc
 **.pyc
 
-data
-nbia-data
-test-data
-
-
-**/.vscode/
-test_fileset.ipynb
+**/__pycache__/*
+**/.DS_Store
