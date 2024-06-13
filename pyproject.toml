@@ -19,7 +19,11 @@ dependencies = [
   "pydantic",
   "textual",
   "trogon",
-  "dataclasses-json", "click-didyoumean",
+  "dataclasses-json",
+  "click-didyoumean",
+  "matplotlib",
+  "plotly",
+  "pandas",
 ]
 classifiers = [
   "License :: OSI Approved :: MIT License",
@@ -39,10 +43,10 @@ issues = "https://github.com/jjjermiah/damply/issues"
 
 [project.scripts]
 dmp = "damply.cli:cli"
+damplyplot = "damply.plot:main"
 
 [project.optional-dependencies]
 style = ["rich-codex"]
-
 
 #--------------------------------------------------------------------------------------------------#
 ############################################## PIXI ################################################
@@ -55,7 +59,6 @@ linux = "3.10.0"
 version = "0.3.0"
 channels = ["conda-forge"]
 platforms = ["osx-arm64", "linux-64", "win-64", "osx-64"]
-# platforms = ["linux-64", "osx-arm64", "osx-64"]
 # platforms = ["osx-arm64"]
 
 [tool.pixi.dependencies]
@@ -64,7 +67,6 @@ platforms = ["osx-arm64", "linux-64", "win-64", "osx-64"]
 damply = { path = ".", editable = true }
 
 [tool.pixi.environments]
-
 dev = { features = ["test", "style", "docs"], solve-group = "default" }
 publish = { features = ["build", "release"], solve-group = "default" }
 py310 = ["py310", "test"]
@@ -197,3 +199,4 @@ publish-test = { cmd = [
 ], depends-on = [
   "build",
 ], env = { HATCH_CONFIG = "config/hatch.toml" } }
+

@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "Pixi",
+			"task": "lint",
+			"problemMatcher": [],
+			"label": "Pixi: lint"
+		}
+	]
+}
