@@ -2,7 +2,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List
-
+import datetime
 import pandas as pd
 import plotly.graph_objects as go
 import rich_click as click
@@ -92,15 +92,11 @@ def generate_node_list(dirlist: DirectoryList) -> List[Path]:
     nodes = sorted(nodes, key=lambda x: (len(x.parts), x))
     return list(nodes)
 
-
-@click.command()
-@click.argument("file_path", type=Path)
-@click.option("--threshold_gb", type=int, default=100)
-def main(
+def damplyplot(
     file_path: Path,
     threshold_gb: int = 100,
     depth_from_common_root: int = 3,
-):
+) -> Path:
     """
 
     The goal is to create a sankey diagram of the directories where the source of
@@ -187,16 +183,17 @@ def main(
                 ),
                 textfont=dict(color="black", size=20),
             )
-        ]
-    )
-
-    fig.show()
-
-
-if __name__ == "__main__":
-    main(
-        file_path=Path(
-            "/Users/bhklab/BHKLAB_Projects/H4H/disk-usage/AUDITS/latest-valid_directories.tsv"
+        ],
+        layout=dict(
+            width=3340,
+            height=1440
         ),
-        threshold_gb=50,
     )
+
+    # save the figure using todays date as damplyplot_{MM-DD-YYYY}.png
+    today = datetime.now()
+    date_str = today.strftime("%m-%d-%Y")
+    
+    output_path = Path(f"damplyplot_{date_str}.png")
+    fig.write_image(output_path)
+    return output_path

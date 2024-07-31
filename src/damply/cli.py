@@ -4,6 +4,7 @@ import rich_click as click
 from rich import print
 
 from damply.metadata import DMPMetadata
+from damply.plot import damplyplot
 from damply.utils import whose as whose_util
 from damply.utils.alias_group import AliasedGroup
 
@@ -120,3 +121,23 @@ def whose(path: Path) -> None:
 
 if __name__ == "__main__":
     cli()
+
+
+@cli.command(context_settings={"help_option_names": ["-h", "--help"]})
+@click.argument(
+    "path",
+    type=click.Path(
+        exists=True,
+        path_type=Path,
+        file_okay=True,
+        dir_okay=True,
+        readable=True,
+    ),
+    default=Path().cwd(),
+)
+@click.option("--threshold_gb", type=int, default=100)
+@click.rich_config(help_config=help_config)
+def plot(path: Path, threshold_gb: int = 100) -> None:
+    """Plot the results of a damply audit using the path to the output csv file."""
+    output_path = damplyplot(path, threshold_gb=threshold_gb)
+    print(f"The plot is saved to {output_path}")
