@@ -7,6 +7,7 @@ from damply.metadata import DMPMetadata
 from damply.plot import damplyplot
 from damply.utils import whose as whose_util
 from damply.utils.alias_group import AliasedGroup
+from damply import __version__
 
 click.rich_click.STYLE_OPTIONS_TABLE_BOX = 'SIMPLE'
 click.rich_click.STYLE_COMMANDS_TABLE_SHOW_LINES = True
@@ -41,7 +42,7 @@ help_config = click.RichHelpConfiguration(
     name='damply',
     context_settings={'help_option_names': ['-h', '--help']},
 )
-@click.version_option('1.23', prog_name='damply')
+@click.version_option(__version__, prog_name='damply')
 def cli() -> None:
     """A tool to interact with systems implementing the Data Management Plan (DMP) standard."""
     pass
