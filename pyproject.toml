@@ -42,7 +42,7 @@ changelog = "https://github.com/jjjermiah/damply/blob/main/docs/CHANGELOG.md"
 issues = "https://github.com/jjjermiah/damply/issues"
 
 [project.scripts]
-dmp = "damply.cli:cli"
+dmp = "damply.cli.main:cli"
 damplyplot = "damply.plot:main"
 
 [project.optional-dependencies]

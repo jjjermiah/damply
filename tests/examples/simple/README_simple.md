@@ -1,6 +1,10 @@
 #OWNER: Jermiah Joseph
+
 #DATE: 2024-05-30
+
 #DESC: A simple readme.
+
+#SIZE: 442368 - 2024-07-31-16:26
 
 
 # An example of a python code block

@@ -8,6 +8,7 @@ from damply.metadata import MANDATORY_FIELDS, DMPMetadata
 from damply.plot import damplyplot
 from damply.utils import whose as whose_util
 from damply.utils.alias_group import AliasedGroup
+# from damply.cli.size import size 
 
 click.rich_click.STYLE_OPTIONS_TABLE_BOX = 'SIMPLE'
 click.rich_click.STYLE_COMMANDS_TABLE_SHOW_LINES = True
@@ -26,7 +27,7 @@ click.rich_click.COMMAND_GROUPS = {
     'damply': [
         {
             'name': 'Subcommands',
-            'commands': ['plot', 'view', 'whose', 'log', 'config', 'init'],
+            'commands': ['plot', 'view', 'whose', 'log', 'config', 'init', 'size'],
         }
     ]
 }
@@ -281,6 +282,36 @@ def init(path: Path) -> None:
 
     console.print(new_metadata)
 
+
+@cli.command(context_settings={'help_option_names': ['-h', '--help']})
+@click.argument(
+    'path',
+    type=click.Path(
+        exists=True,
+        path_type=Path,
+        file_okay=True,
+        dir_okay=True,
+        readable=True,
+    ),
+    default=Path().cwd(),
+)
+def size(path: Path) -> None:
+    """Print the size of the directory."""
+    try:
+        metadata = DMPMetadata.from_path(path)
+        metadata.check_fields()
+    except ValueError as e:
+        print(f'{e}')
+        return
+
+    size_dir = metadata.read_dirsize()
+    from rich.console import Console
+    console = Console()
+    
+    console.print(
+        f"The size of [bold magenta]{path}[/bold magenta] is [bold cyan]{size_dir}[/bold cyan]"
+    )
+    print(metadata)
 
 if __name__ == '__main__':
     cli()

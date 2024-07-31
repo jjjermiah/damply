@@ -6,6 +6,9 @@
 
 #DESC: Snakemake pipeline to run kallisto on slurm cluster.
 
+#SIZE: 73728 - 2024-07-31-16:22
+
+
 # run_kallisto
 
 ## Snakemake pipeline to run kallisto on slurm cluster.
@@ -28,3 +31,7 @@ TODO:
 
 - Ideally the kallisto version should be specified in YAML file and should be downloaded automatically if necessary.
 - Ideally in the absence of a kallisto index, the pipeline should build it automatically.
+
+
+
+2024-07-31 16:22: testing

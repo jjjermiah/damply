@@ -1,7 +1,10 @@
+from damply.utils import ByteSize
+
 import datetime  # Add this import
 import re
 import stat
 from dataclasses import dataclass, field
+import subprocess
 from pathlib import Path
 from typing import Type
 
@@ -15,21 +18,12 @@ def is_file_writable(file_path: Path) -> bool:
 
     return file_path.exists() and os.access(file_path, os.W_OK)
 
-
-def get_directory_size(directory: Path) -> int:
-    total_size = 0
-
-    for item in directory.rglob('*'):
-        if item.is_file():
-            try:
-                total_size += item.stat().st_size
-            except (FileNotFoundError, PermissionError):
-                continue
-            except OSError:
-                continue
-
-    return total_size
-
+def get_directory_size(directory: Path) -> ByteSize:
+    # may raise   subprocess.CalledProcessError
+    result = subprocess.run(['du', '-s', '-B 1', str(directory)], capture_output=True, text=True, check=True)
+    size_ =  ByteSize(int(result.stdout.split()[0])) 
+    print(f"Size in bytes: {size_.B}")
+    return size_
 
 @dataclass
 class DMPMetadata:
@@ -39,6 +33,8 @@ class DMPMetadata:
     permissions: str = field(default='---------')
     logs: list = field(default_factory=list, repr=True)
     readme: Path = field(default=Path().cwd() / 'README')
+    size: ByteSize = field(default=None, repr=False)
+    size_measured_at: datetime.datetime = field(default=None, repr=False)
 
     @classmethod
     def from_path(cls: Type['DMPMetadata'], path: Path) -> 'DMPMetadata':
@@ -66,14 +62,37 @@ class DMPMetadata:
             raise PermissionError(f'{readme} is not readable: {metadata.permissions}')
 
         metadata.fields = cls._parse_readme(readme)
-
         # remove the content field from the fields dict
         metadata.content = metadata.fields.pop('content', '')
 
         return metadata
 
-    def _dirsize(self) -> int:
-        return get_directory_size(self.path)
+    def _dirsize(self) -> ByteSize:
+        size = get_directory_size(self.path)
+        self.size = size
+        self.size_measured_at = datetime.datetime.now().strftime('%Y-%m-%d-%H:%M')
+        return size
+
+    def write_dirsize(self) -> None:
+        if not self.size:
+            self._dirsize()
+        dirsize_str = f"{self.size.B} - {self.size_measured_at}"
+        self.fields['SIZE'] = dirsize_str
+        print(f"Writing size: {self.size.B}")
+        self.write_to_file()
+
+    def read_dirsize(self) -> ByteSize:
+        dirsize_str = self.fields.get('SIZE', None)        
+        if dirsize_str:
+            print(f"using size from README: {dirsize_str}")
+            self.size = ByteSize(int(dirsize_str.split()[0]))
+            self.size_measured_at = datetime.datetime.strptime(dirsize_str.split()[2], '%Y-%m-%d-%H:%M')
+            print(f"Read size: {self.size.B}")
+            print(f"Read size measured at: {self.size_measured_at}")
+            return self.size
+        else:
+            self.write_dirsize()
+            return self.size
 
     def log_change(self, description: str) -> None:
         timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -154,7 +173,8 @@ class DMPMetadata:
                         current_value.append(line.strip())
                     else:
                         content_lines.append(line.strip())
-
+            
+            
             if current_field:
                 metadata[current_field] = ' '.join(current_value).strip()
 
@@ -202,3 +222,5 @@ class DMPMetadata:
         yield 'content', self.content
         yield 'permissions', self.permissions
         yield 'logs', self.logs
+        yield 'size', self.size
+        yield 'size_measured_at', self.size_measured_at
