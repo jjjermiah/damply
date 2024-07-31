@@ -2,6 +2,13 @@
 
 
 
+## v0.7.1 (2024-07-31)
+
+### Fix
+
+* fix: update cli tool ([`9ea8c5a`](https://github.com/jjjermiah/damply/commit/9ea8c5a9dde55366f2014027dc753f79d9955744))
+
+
 ## v0.7.0 (2024-07-31)
 
 ### Feature
