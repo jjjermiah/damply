@@ -5,9 +5,9 @@ import datetime  # Add this import
 
 
 def test_from_path_valid_readme():
-    readme_path = Path("tests/examples/simple/README_simple.md")
+    readme_path = Path("tests/examples/simple/README_simple.md").resolve()
     metadata = DMPMetadata.from_path(readme_path)
-    assert metadata.path == readme_path
+    assert metadata.readme == readme_path
     assert metadata.fields == {
         "OWNER": "Jermiah Joseph",
         "DATE": "2024-05-30",
@@ -16,7 +16,7 @@ def test_from_path_valid_readme():
 
 
 def test_from_path_invalid_readme():
-    readme_path = Path("tests/examples/invalid_.md")
+    readme_path = Path("tests/examples/invalid_.md").resolve()
     with pytest.raises(ValueError):
         DMPMetadata.from_path(readme_path)
 

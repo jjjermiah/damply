@@ -24,6 +24,7 @@ last_modified	has_README	OWNER	DATE	DESC	size_MB	size_GB
 Goal:
 """
 
+
 def permutate_path(path: Path) -> List[Path]:
     """
     Given a path, return all possible paths from the root to the path
@@ -119,9 +120,8 @@ def damplyplot(
     common_root_index = nodes.index(dirlist.common_root)
     label_with_sizes[common_root_index] = f'{dirlist.common_root} ({common_root_size} GB)'
 
-    
-    fig_layout = {'width': fig_width , 'height': fig_height}
-    
+    fig_layout = {'width': fig_width, 'height': fig_height}
+
     fig = go.Figure(
         data=[
             go.Sankey(

@@ -1,14 +1,13 @@
 from pathlib import Path
-import re
 
 import rich_click as click
 from rich import print
 
-from damply.metadata import DMPMetadata, MANDATORY_FIELDS
+from damply import __version__
+from damply.metadata import MANDATORY_FIELDS, DMPMetadata
 from damply.plot import damplyplot
 from damply.utils import whose as whose_util
 from damply.utils.alias_group import AliasedGroup
-from damply import __version__
 
 click.rich_click.STYLE_OPTIONS_TABLE_BOX = 'SIMPLE'
 click.rich_click.STYLE_COMMANDS_TABLE_SHOW_LINES = True
@@ -119,26 +118,27 @@ def whose(path: Path) -> None:
         file_okay=True,
         dir_okay=True,
         readable=True,
-    )
+    ),
 )
 @click.option('--threshold_gb', type=int, default=100)
 @click.option('--fig_width', type=int, default=3340)
 @click.option('--fig_height', type=int, default=1440)
 @click.rich_config(help_config=help_config)
 def plot(
-    path: Path, 
+    path: Path,
     threshold_gb: int = 100,
     fig_width: int = 3340,
     fig_height: int = 1440,
 ) -> None:
     """Plot the results of a damply audit using the path to the output csv file."""
     output_path = damplyplot(
-        file_path = path,
-        threshold_gb = threshold_gb,
-        fig_width = fig_width,
-        fig_height = fig_height,
+        file_path=path,
+        threshold_gb=threshold_gb,
+        fig_width=fig_width,
+        fig_height=fig_height,
     )
     print(f'The plot is saved to {output_path}')
+
 
 @cli.command(context_settings={'help_option_names': ['-h', '--help']})
 @click.option(
@@ -163,7 +163,7 @@ def log(description: str, path: Path) -> None:
         metadata = DMPMetadata.from_path(path)
         metadata.check_fields()
     except ValueError as e:
-        print(f"Error: No log entry added.\n{e}")
+        print(f'Error: No log entry added.\n{e}')
         return
 
     metadata.log_change(description)
@@ -191,22 +191,21 @@ def log(description: str, path: Path) -> None:
 def config(path: Path, dry_run: bool) -> None:
     """Modify or add the fields in the README file."""
 
-    
     try:
         metadata = DMPMetadata.from_path(path)
         metadata.check_fields()
     except ValueError as e:
-        print(f"{e}")
-    
+        print(f'{e}')
+
     from rich.console import Console
 
     if dry_run:
         config_path = Path(metadata.readme + '.dmp')
         print(
-            f"Dry run mode is on. No changes will be made and"
-            f"changes will be written to [bold cyan]{config_path.resolve()}[/bold cyan]"
-            )
-    else: 
+            f'Dry run mode is on. No changes will be made and'
+            f'changes will be written to [bold cyan]{config_path.resolve()}[/bold cyan]'
+        )
+    else:
         config_path = metadata.readme
 
     # here, we show a prompt for each field in metadata.fields
@@ -214,20 +213,20 @@ def config(path: Path, dry_run: bool) -> None:
     console = Console()
     for field in MANDATORY_FIELDS:
         value = metadata.fields.get(field, '[red]NOT SET[/red]')
-        console.print(f"[bold]{field}[/bold]: [cyan]{value}[/cyan]")
-        new_value = console.input(f"Enter a new value for {field}: ")
-        # if new_value:
-        #     metadata[field] = new_value
+        console.print(f'[bold]{field}[/bold]: [cyan]{value}[/cyan]')
+        new_value = console.input(f'Enter a new value for {field}: ')
+
         if not new_value and not metadata.fields.get(field):
-            print(f"[red]Field {field} MUST be set.[/red]")
+            print(f'[red]Field {field} MUST be set.[/red]')
             return
         metadata[field] = new_value
 
-    metadata.log_change(f"Updated fields in README file.")
-    
+    metadata.log_change('Updated fields in README file.')
+
     if dry_run:
         metadata.write_to_file(config_path)
         console.print(metadata)
+
 
 @cli.command(context_settings={'help_option_names': ['-h', '--help']})
 @click.argument(
@@ -247,40 +246,41 @@ def init(path: Path) -> None:
     try:
         metadata = DMPMetadata.from_path(path)
         if metadata.readme.exists():
-            print(f"Error: README file already exists at {metadata.readme}")
+            print(f'Error: README file already exists at {metadata.readme}')
             return
-    except ValueError as e:
+    except ValueError:
         pass
 
-
     from rich.console import Console
+
     console = Console()
     new_readme_path = path / 'README.md'
-    console.print(f"Creating a new README file at {new_readme_path}")
+    console.print(f'Creating a new README file at {new_readme_path}')
 
     fields = {fld: '' for fld in MANDATORY_FIELDS}
     # create the README file
     for fld in MANDATORY_FIELDS:
         while not fields[fld]:
-            print(f"[red]Field {fld} MUST be set.[/red]")
-            fields[fld] = console.input(f"Enter a value for {fld}: ")
-    
+            print(f'[red]Field {fld} MUST be set.[/red]')
+            fields[fld] = console.input(f'Enter a value for {fld}: ')
+
     new_metadata = DMPMetadata(
-        fields = fields,
-        content = '',
-        path = path,
-        permissions = '---------',
-        logs = [],
-        readme = new_readme_path,
+        fields=fields,
+        content='',
+        path=path,
+        permissions='---------',
+        logs=[],
+        readme=new_readme_path,
     )
 
     try:
         new_metadata.check_fields()
     except ValueError as e:
-        print(f"Error: {e}")
+        print(f'Error: {e}')
         return
 
     console.print(new_metadata)
+
 
 if __name__ == '__main__':
     cli()

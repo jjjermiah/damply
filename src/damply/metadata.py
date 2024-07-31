@@ -7,29 +7,28 @@ from typing import Type
 
 import rich.repr
 
-MANDATORY_FIELDS = ["OWNER", "DATE", "DESC"]
+MANDATORY_FIELDS = ['OWNER', 'DATE', 'DESC']
+
 
 def is_file_writable(file_path: Path) -> bool:
     import os
 
     return file_path.exists() and os.access(file_path, os.W_OK)
 
+
 def get_directory_size(directory: Path) -> int:
     total_size = 0
-    try:
-        for item in directory.rglob('*'):
-            if item.is_file():
-                try:
-                    total_size += item.stat().st_size
-                except (FileNotFoundError, PermissionError):
-                    continue
-                except OSError:
-                    continue
-    except Exception as e:
-        print(f"Error: {e}. Continuing...")
-        pass
-    return total_size
 
+    for item in directory.rglob('*'):
+        if item.is_file():
+            try:
+                total_size += item.stat().st_size
+            except (FileNotFoundError, PermissionError):
+                continue
+            except OSError:
+                continue
+
+    return total_size
 
 
 @dataclass
@@ -54,7 +53,7 @@ class DMPMetadata:
             else:
                 readme = readmes[0]
         else:
-            readme = path 
+            readme = path
 
         if 'README' not in readme.stem.upper():
             raise ValueError('The file is not a README file.')
@@ -70,7 +69,7 @@ class DMPMetadata:
 
         # remove the content field from the fields dict
         metadata.content = metadata.fields.pop('content', '')
-        
+
         return metadata
 
     def _dirsize(self) -> int:
@@ -123,10 +122,7 @@ class DMPMetadata:
     def check_fields(self) -> None:
         missing = [fld for fld in MANDATORY_FIELDS if fld not in self.fields]
         if missing:
-            raise ValueError(
-                            f"The following fields are missing: {missing}"
-                            f" in {self.readme}"
-                            )
+            raise ValueError(f'The following fields are missing: {missing}' f' in {self.readme}')
 
     @classmethod
     def _parse_readme(
