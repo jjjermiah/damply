@@ -25,7 +25,7 @@ click.rich_click.COMMAND_GROUPS = {
     'damply': [
         {
             'name': 'Subcommands',
-            'commands': ['version', 'view', 'whose'],
+            'commands': ['plot', 'view', 'whose'],
         }
     ]
 }
