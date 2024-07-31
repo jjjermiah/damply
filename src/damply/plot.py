@@ -1,6 +1,7 @@
-from pathlib import Path
-from typing import Any, Dict, List
 import datetime
+from pathlib import Path
+from typing import List
+
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -8,29 +9,29 @@ from damply.utils import Directory, DirectoryList
 
 """This is a sandbox script to plot a sankey diagram of the dmp"""
 
-MANDATORY_COLUMNS = ["abspath", "size_GB"]
+MANDATORY_COLUMNS = ['abspath', 'size_GB']
 
 """
-The input file should contain the mandatory columns and optionally other columns. The mandatory columns are:
+The input file should contain the mandatory columns and optionally other columns.
+The mandatory columns are:
 - abspath: the absolute path of the directory
 - size_GB: the size of the directory in GB
 
 Column Headings:
-owner	full_name	abspath	relative_path	directory	parent_dir	permissions	creation_date	last_modified	has_README	OWNER	DATE	DESC	size_MB	size_GB
+owner	full_name	abspath	relative_path	directory	parent_dir	permissions	creation_date
+last_modified	has_README	OWNER	DATE	DESC	size_MB	size_GB
 
 Goal:
 """
-
-
 
 def permutate_path(path: Path) -> List[Path]:
     """
     Given a path, return all possible paths from the root to the path
     """
-    assert path.is_absolute(), "The path must be absolute"
-    
+    assert path.is_absolute(), 'The path must be absolute'
+
     nodes = []
-    while path != Path("/"):
+    while path != Path('/'):
         nodes.append(path)
         path = path.parent
     return nodes
@@ -46,6 +47,7 @@ def generate_node_list(dirlist: DirectoryList) -> List[Path]:
     nodes = sorted(nodes, key=lambda x: (len(x.parts), x))
     return list(nodes)
 
+
 def damplyplot(
     file_path: Path,
     threshold_gb: int = 100,
@@ -54,11 +56,12 @@ def damplyplot(
     """
 
     The goal is to create a sankey diagram of the directories where the source of
-    each flow is the parent directory and the target is the child directory with the width of the flow being the size of the director
+    each flow is the parent directory and the target is the child directory with
+    the width of the flow being the size of the directory
     """
 
     # Read the file
-    df = pd.read_csv(file_path, sep="\t")
+    df = pd.read_csv(file_path, sep='\t')
 
     if not all(col in df.columns for col in MANDATORY_COLUMNS):
         raise ValueError(
@@ -66,21 +69,21 @@ def damplyplot(
         )
 
     # Filter the dataframe
-    df = df[df["size_GB"] > threshold_gb]
+    df = df[df['size_GB'] > threshold_gb]
 
     dirlist: DirectoryList = DirectoryList(
         directories=[
-            Directory(directory=Path(row["abspath"]), size_GB=row["size_GB"])
+            Directory(directory=Path(row['abspath']), size_GB=row['size_GB'])
             for index, row in df.iterrows()
         ]
     )
     nodes = generate_node_list(dirlist)
 
     links = []
-    for dir in dirlist:
-        target = nodes.index(dir.directory)
-        source = nodes.index(dir.parent)
-        links.append({"source": source, "target": target, "value": dir.size_GB})
+    for _dir in dirlist:
+        target = nodes.index(_dir.directory)
+        source = nodes.index(_dir.parent)
+        links.append({'source': source, 'target': target, 'value': _dir.size_GB})
 
     label_with_sizes = []
     for node in nodes:
@@ -94,7 +97,7 @@ def damplyplot(
             # add to dirlist
             dirlist.directories.append(Directory(directory=node, size_GB=size))
 
-        label_with_sizes.append(f"{label} ({size} GB)")
+        label_with_sizes.append(f'{label} ({size} GB)')
 
     nodes_whose_parent_is_common_root = [
         node for node in nodes if node.parent == dirlist.common_root
@@ -102,52 +105,43 @@ def damplyplot(
 
     # add a link from the common root to the nodes whose parent is the common root
     common_root_size = sum(
-        [
-            dir.size_GB
-            for dir in dirlist.directories
-            if dir.parent == dirlist.common_root
-        ]
+        [_dir.size_GB for _dir in dirlist.directories if _dir.parent == dirlist.common_root]
     )
     for node in nodes_whose_parent_is_common_root:
         target = nodes.index(node)
         source = nodes.index(dirlist.common_root)
         size = dirlist.dir_size_dict().get(node, 0)
-        links.append({"source": source, "target": target, "value": size})
+        links.append({'source': source, 'target': target, 'value': size})
 
     # get the index of the common root so that we can update the label_with_sizes index
     common_root_index = nodes.index(dirlist.common_root)
-    label_with_sizes[common_root_index] = (
-        f"{dirlist.common_root} ({common_root_size} GB)"
-    )
+    label_with_sizes[common_root_index] = f'{dirlist.common_root} ({common_root_size} GB)'
 
     fig = go.Figure(
         data=[
             go.Sankey(
-                node=dict(
-                    pad=15,
-                    thickness=20,
-                    line=dict(color="black", width=0.5),
-                    label=label_with_sizes,
-                    color="blue",
-                ),
-                link=dict(
-                    source=[link["source"] for link in links],
-                    target=[link["target"] for link in links],
-                    value=[link["value"] for link in links],
-                ),
-                textfont=dict(color="black", size=20),
+                node={
+                    'pad': 15,
+                    'thickness': 20,
+                    'line': {'color': 'black', 'width': 0.5},
+                    'label': label_with_sizes,
+                    'color': 'blue',
+                },
+                link={
+                    'source': [link['source'] for link in links],
+                    'target': [link['target'] for link in links],
+                    'value': [link['value'] for link in links],
+                },
+                textfont={'color': 'black', 'size': 20},
             )
         ],
-        layout=dict(
-            width=3340,
-            height=1440
-        ),
+        layout={'width': 3340, 'height': 1440},
     )
 
     # save the figure using todays date as damplyplot_{MM-DD-YYYY}.png
     today = datetime.now()
-    date_str = today.strftime("%m-%d-%Y")
-    
-    output_path = Path(f"damplyplot_{date_str}.png")
+    date_str = today.strftime('%m-%d-%Y')
+
+    output_path = Path(f'damplyplot_{date_str}.png')
     fig.write_image(output_path)
     return output_path
