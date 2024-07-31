@@ -7,10 +7,29 @@ from typing import Type
 
 import rich.repr
 
+MANDATORY_FIELDS = ["OWNER", "DATE", "DESC"]
+
 def is_file_writable(file_path: Path) -> bool:
     import os
 
     return file_path.exists() and os.access(file_path, os.W_OK)
+
+def get_directory_size(directory: Path) -> int:
+    total_size = 0
+    try:
+        for item in directory.rglob('*'):
+            if item.is_file():
+                try:
+                    total_size += item.stat().st_size
+                except (FileNotFoundError, PermissionError):
+                    continue
+                except OSError:
+                    continue
+    except Exception as e:
+        print(f"Error: {e}. Continuing...")
+        pass
+    return total_size
+
 
 
 @dataclass
@@ -20,32 +39,53 @@ class DMPMetadata:
     path: Path = field(default=Path().cwd())
     permissions: str = field(default='---------')
     logs: list = field(default_factory=list, repr=True)
+    readme: Path = field(default=Path().cwd() / 'README')
 
     @classmethod
     def from_path(cls: Type['DMPMetadata'], path: Path) -> 'DMPMetadata':
-        if 'README' not in path.stem.upper():
+        # if path is a directory, get the README file
+        if path.is_dir():
+            readmes = [f for f in path.glob('README*') if f.is_file()]
+            if len(readmes) == 0:
+                raise ValueError('No README file found.')
+            elif len(readmes) > 1:
+                print('Multiple README files found. Using the first one.')
+                readme = readmes[0]
+            else:
+                readme = readmes[0]
+        else:
+            readme = path 
+
+        if 'README' not in readme.stem.upper():
             raise ValueError('The file is not a README file.')
 
         metadata = cls()
-        metadata.path = path
-        metadata.permissions = cls.evaluate_permissions(path)
-
+        metadata.path = readme.resolve().parent
+        metadata.permissions = cls.evaluate_permissions(readme)
+        metadata.readme = readme
         if not metadata.is_readable():
-            raise PermissionError(f'{path} is not readable: {metadata.permissions}')
+            raise PermissionError(f'{readme} is not readable: {metadata.permissions}')
 
-        metadata.fields = cls._parse_readme(path)
+        metadata.fields = cls._parse_readme(readme)
 
         # remove the content field from the fields dict
         metadata.content = metadata.fields.pop('content', '')
-
+        
         return metadata
+
+    def _dirsize(self) -> int:
+        return get_directory_size(self.path)
 
     def log_change(self, description: str) -> None:
         timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         self.logs.append(f'{timestamp}: {description}')
 
     def write_to_file(self, newpath: Path | None = None) -> None:
-        newpath = newpath or self.path.with_name(self.path.stem + '.dmp')
+        newpath = newpath or self.readme
+        newpath = newpath.resolve()
+        # create the newpath file if it doesn't exist
+        newpath.parent.mkdir(parents=True, exist_ok=True)
+        newpath.touch(exist_ok=True)
 
         if not is_file_writable(newpath):
             raise PermissionError(f'{newpath} is not writable: {self.permissions}')
@@ -79,6 +119,14 @@ class DMPMetadata:
             for log in self.logs:
                 file.write(f'\n{log}')
         file.close()
+
+    def check_fields(self) -> None:
+        missing = [fld for fld in MANDATORY_FIELDS if fld not in self.fields]
+        if missing:
+            raise ValueError(
+                            f"The following fields are missing: {missing}"
+                            f" in {self.readme}"
+                            )
 
     @classmethod
     def _parse_readme(

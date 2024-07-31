@@ -1,3 +1,4 @@
+
 # damply
 
 [![codecov](https://codecov.io/gh/jjjermiah/damply/graph/badge.svg?token=tCcajRIGz9)](https://codecov.io/gh/jjjermiah/damply)
@@ -17,7 +18,7 @@
 ## Overview
 
 
-DaMPly (Data Management Plan) is a Python module designed to streamline the process of managing and packaging directories. 
+DaMPly (Data Management Plan) is a Python module designed to streamline the process of managing and packaging directories.
 
 This tool is particularly useful for archiving project directories while leaving behind a README file to provide context and instructions for future users.
 
@@ -42,5 +43,6 @@ The `build` feature contains the following tasks:
 - `build`: Builds the package.
 - `publish-pypi`: Publishes the package to the main PYPI repository.
 - `publish-test`: Publishes the package to the TEST-PYPI repository.
-  
+
 For more details, view the [devnotes on pixi + hatch](devnotes/pixi-hatch-build.md).
+
