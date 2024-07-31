@@ -87,6 +87,7 @@ jobs:
           environments: ${{ env.PIXI_ENV }}
           pixi-version: v0.22.0
           cache: true
+          locked: false 
           # cache-key: pixi-ENV_${{ env.PIXI_ENV }}-
 
       - name: Run Ruff
@@ -123,6 +124,7 @@ jobs:
           environments: ${{ env.PIXI_ENV }}
           pixi-version: v0.22.0
           cache: true
+          locked: false # wont be the same because of the tag
           # cache-key: pixi-ENV_${{ env.PIXI_ENV }}-
 
       - name: Build and deploy documentation
