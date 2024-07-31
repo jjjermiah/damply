@@ -2,6 +2,25 @@
 
 
 
+## v0.7.0 (2024-07-31)
+
+### Feature
+
+* feat: add damply plotting ([`dcc72e1`](https://github.com/jjjermiah/damply/commit/dcc72e1bbcd69fe2b4cdc0e9abac8a443f06ca1e))
+
+### Fix
+
+* fix: gha to not use locked ([`1233f00`](https://github.com/jjjermiah/damply/commit/1233f00e3ad0e0404ab6513643d3be77c694800c))
+
+* fix: lint and format and cleanup ([`c877847`](https://github.com/jjjermiah/damply/commit/c877847d18b2f9623b1c963b6f84c7fba4cfba59))
+
+* fix: fix arrangement ([`3e94e4a`](https://github.com/jjjermiah/damply/commit/3e94e4aff321a5b4fec8e388084565609294b56a))
+
+* fix: update gha to not use locked pixi ([`189294e`](https://github.com/jjjermiah/damply/commit/189294e4883e8fbd65f794461d1ed92e95a12476))
+
+* fix: update gha to not use locked pixi, add plot to cli ([`255e08e`](https://github.com/jjjermiah/damply/commit/255e08ef8dfaa583ed8946dc41b724759409754d))
+
+
 ## v0.6.0 (2024-05-31)
 
 ### Feature
