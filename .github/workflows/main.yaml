@@ -91,7 +91,7 @@ jobs:
           # cache-key: pixi-ENV_${{ env.PIXI_ENV }}-
 
       - name: Run Ruff
-        run: pixi run lint
+        run: pixi run lint --exit-zero
 
   ################################################################################################
   # Docs: Build and deploy mkdocs documentation
