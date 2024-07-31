@@ -23,7 +23,7 @@ dependencies = [
   "click-didyoumean",
   "matplotlib",
   "plotly",
-  "pandas",
+  "pandas", "kaleido",
 ]
 classifiers = [
   "License :: OSI Approved :: MIT License",

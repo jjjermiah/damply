@@ -27,11 +27,9 @@ class DirectoryList:
         self.common_root = self.get_common_root()
 
     def get_common_root(self) -> Path:
-        return Path(
-            os.path.commonprefix(
-                [str(directory.directory) for directory in self.directories]
-            )
-        )
+        dirs = [directory.directory for directory in self.directories]
+        common_path = os.path.commonpath(dirs)
+        return Path(common_path)
 
     def __len__(self) -> int:
         return len(self.directories)

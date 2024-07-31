@@ -51,6 +51,8 @@ def generate_node_list(dirlist: DirectoryList) -> List[Path]:
 def damplyplot(
     file_path: Path,
     threshold_gb: int = 100,
+    fig_width: int = 3340,
+    fig_height: int = 1440,
     depth_from_common_root: int = 3,
 ) -> Path:
     """
@@ -117,12 +119,15 @@ def damplyplot(
     common_root_index = nodes.index(dirlist.common_root)
     label_with_sizes[common_root_index] = f'{dirlist.common_root} ({common_root_size} GB)'
 
+    
+    fig_layout = {'width': fig_width , 'height': fig_height}
+    
     fig = go.Figure(
         data=[
             go.Sankey(
                 node={
-                    'pad': 15,
-                    'thickness': 20,
+                    'pad': 30,
+                    'thickness': 10,
                     'line': {'color': 'black', 'width': 0.5},
                     'label': label_with_sizes,
                     'color': 'blue',
@@ -135,13 +140,13 @@ def damplyplot(
                 textfont={'color': 'black', 'size': 20},
             )
         ],
-        layout={'width': 3340, 'height': 1440},
+        layout=fig_layout,
     )
 
     # save the figure using todays date as damplyplot_{MM-DD-YYYY}.png
-    today = datetime.now()
-    date_str = today.strftime('%m-%d-%Y')
+    date_str = datetime.now().strftime('%m-%d-%Y')
 
     output_path = Path(f'damplyplot_{date_str}.png')
     fig.write_image(output_path)
+
     return output_path

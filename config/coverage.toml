@@ -1,4 +1,7 @@
 [tool.coverage.run]
-omit = ["src/damply/cli.py"]
+omit = [
+  "src/damply/cli.py",
+  "src/damply/plot.py",
+]
 
 [tool.coverage.report]
