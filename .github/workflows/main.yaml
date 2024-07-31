@@ -180,6 +180,7 @@ jobs:
           environments: ${{ env.PIXI_ENV }}
           pixi-version: v0.22.0
           cache: true
+          locked: false 
           # cache-key: pixi-ENV_${{ env.PIXI_ENV }}-
 
       - name: Run semantic-release
