@@ -8,39 +8,10 @@ from damply.metadata import MANDATORY_FIELDS, DMPMetadata
 from damply.plot import damplyplot
 from damply.utils import whose as whose_util
 from damply.utils.alias_group import AliasedGroup
-from damply.audit import DirectoryAudit
 
-click.rich_click.STYLE_OPTIONS_TABLE_BOX = 'SIMPLE'
-click.rich_click.STYLE_COMMANDS_TABLE_SHOW_LINES = True
-click.rich_click.STYLE_COMMANDS_TABLE_PAD_EDGE = True
-
-click.rich_click.OPTION_GROUPS = {
-    'damply': [
-        {
-            'name': 'Basic options',
-            'options': ['--help', '--version'],
-        },
-    ]
-}
-
-click.rich_click.COMMAND_GROUPS = {
-    'damply': [
-        {
-            'name': 'Info Commands',
-            'commands': ['view', 'whose', 'log', 'config', 'init', 'size'],
-        },
-        {
-            'name': 'Audit Commands',
-            'commands': ['audit', 'plot', ],
-        }
-    ]
-}
-
-help_config = click.RichHelpConfiguration(
-    show_arguments=True,
-    option_groups={'damply': [{'name': 'Arguments', 'panel_styles': {'box': 'ASCII'}}]},
-)
-
+from damply.cli.audit import audit
+from damply.cli.plot import plot
+from damply.cli.click_config import help_config
 
 @click.group(
     cls=AliasedGroup,
@@ -118,37 +89,6 @@ def whose(path: Path) -> None:
     result = whose_util.get_file_owner_full_name(path)
 
     print(f'The owner of [bold magenta]{path}[/bold magenta] is [bold cyan]{result}[/bold cyan]')
-
-
-@cli.command(context_settings={'help_option_names': ['-h', '--help']})
-@click.argument(
-    'path',
-    type=click.Path(
-        exists=True,
-        path_type=Path,
-        file_okay=True,
-        dir_okay=True,
-        readable=True,
-    ),
-)
-@click.option('--threshold_gb', type=int, default=100)
-@click.option('--fig_width', type=int, default=3340)
-@click.option('--fig_height', type=int, default=1440)
-@click.rich_config(help_config=help_config)
-def plot(
-    path: Path,
-    threshold_gb: int = 100,
-    fig_width: int = 3340,
-    fig_height: int = 1440,
-) -> None:
-    """Plot the results of a damply audit using the path to the output csv file."""
-    output_path = damplyplot(
-        file_path=path,
-        threshold_gb=threshold_gb,
-        fig_width=fig_width,
-        fig_height=fig_height,
-    )
-    print(f'The plot is saved to {output_path}')
 
 
 @cli.command(context_settings={'help_option_names': ['-h', '--help']})
@@ -324,26 +264,8 @@ def size(path: Path) -> None:
     print(metadata)
 
 
-@cli.command(context_settings={'help_option_names': ['-h', '--help']})
-@click.argument(
-    'path',
-    type=click.Path(
-        exists=True,
-        path_type=Path,
-        file_okay=True,
-        dir_okay=True,
-        readable=True,
-    ),
-    default=Path().cwd(),
-)
-def audit(path: Path) -> None:
-    """Audit the metadata of a valid DMP Directory."""
-    try:
-        audit = DirectoryAudit.from_path(path)
-        print(audit)
-    except ValueError as e:
-        print(e)
-        return
+cli.add_command(audit)
+cli.add_command(plot)
 
 
 if __name__ == '__main__':
