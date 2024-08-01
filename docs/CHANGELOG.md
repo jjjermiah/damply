@@ -1,13 +1,34 @@
 # CHANGELOG
 
+## v0.8.0 (2024-08-01)
 
+### Chore
+
+* chore: format and clean ([`26bfaf3`](https://github.com/jjjermiah/damply/commit/26bfaf3b22ed4eaa0c51ab856ff4e1459f1617fb))
+
+### Feature
+
+* feat: organize cli commands ([`e25a966`](https://github.com/jjjermiah/damply/commit/e25a9664810b385404bb4f2e4ad293db9e1b15b9))
+
+* feat: add basic audit ([`e8c307e`](https://github.com/jjjermiah/damply/commit/e8c307e3f5e6f5133d1efeabd18f8243f30d82e5))
+
+* feat: added size check ([`219b653`](https://github.com/jjjermiah/damply/commit/219b6534ba92f42e3e734924e4c2c571c16837ae))
+
+* feat: init and config subcommands ([`578dfda`](https://github.com/jjjermiah/damply/commit/578dfdaa7ba73d5d865ab2c3a6eea2e2f059cf04))
+
+### Fix
+
+* fix: merge ([`e6ae533`](https://github.com/jjjermiah/damply/commit/e6ae53385aad671164427d75edfbe1cb3c1851e4))
+
+* fix: tests for whose command ([`f08d6c2`](https://github.com/jjjermiah/damply/commit/f08d6c2de2df8a79cd7320aaada18b44c5608c82))
+
+* fix: add tests and fix common root ([`3cb4199`](https://github.com/jjjermiah/damply/commit/3cb4199966275374bbb8b5ab4a93e3a8ba695946))
 
 ## v0.7.1 (2024-07-31)
 
 ### Fix
 
 * fix: update cli tool ([`9ea8c5a`](https://github.com/jjjermiah/damply/commit/9ea8c5a9dde55366f2014027dc753f79d9955744))
-
 
 ## v0.7.0 (2024-07-31)
 
@@ -27,7 +48,6 @@
 
 * fix: update gha to not use locked pixi, add plot to cli ([`255e08e`](https://github.com/jjjermiah/damply/commit/255e08ef8dfaa583ed8946dc41b724759409754d))
 
-
 ## v0.6.0 (2024-05-31)
 
 ### Feature
@@ -40,7 +60,6 @@
 
 * fix: lock ([`4168366`](https://github.com/jjjermiah/damply/commit/41683662fe792097f017e70013c73d38ded5bf34))
 
-
 ## v0.5.0 (2024-05-31)
 
 ### Chore
@@ -52,7 +71,6 @@
 * feat: add whose and file size ([`04772d4`](https://github.com/jjjermiah/damply/commit/04772d49bb4a4ae7656dbb3bb1931a3c76ec544a))
 
 * feat: Add lazy loading for images in README view ([`7d1e053`](https://github.com/jjjermiah/damply/commit/7d1e053b18f63fbc8c27e6abf813b67eb7f3955d))
-
 
 ## v0.4.1 (2024-05-31)
 
@@ -68,7 +86,6 @@
 
 * fix: format ([`e153b30`](https://github.com/jjjermiah/damply/commit/e153b30f32108b0a9750f1a4b0c7e0b00116c152))
 
-
 ## v0.4.0 (2024-05-31)
 
 ### Feature
@@ -83,7 +100,6 @@
 
 * fix: lint ([`64944d3`](https://github.com/jjjermiah/damply/commit/64944d3025cc20721aa5415c882b42e737daa3da))
 
-
 ## v0.3.0 (2024-05-31)
 
 ### Chore
@@ -95,7 +111,6 @@
 * feat: add cli tool ([`077e52b`](https://github.com/jjjermiah/damply/commit/077e52bf1e3c529685a631aee6978e59676b0165))
 
 * feat: add cli ([`1e825d1`](https://github.com/jjjermiah/damply/commit/1e825d1e71293cb46fcb8abe6498b5a695982e39))
-
 
 ## v0.2.0 (2024-05-31)
 
@@ -109,13 +124,11 @@
 
 * fix: tests so it makes file ([`69d4e54`](https://github.com/jjjermiah/damply/commit/69d4e54ea76ef75dde242e28261ee79b60bc2093))
 
-
 ## v0.1.1 (2024-05-31)
 
 ### Fix
 
 * fix: some pypi issues ([`c6f810e`](https://github.com/jjjermiah/damply/commit/c6f810ea4859a45b4d9f1b3432cca1f45dc29f30))
-
 
 ## v0.1.0 (2024-05-31)
 
