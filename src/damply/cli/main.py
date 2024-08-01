@@ -8,7 +8,7 @@ from damply.metadata import MANDATORY_FIELDS, DMPMetadata
 from damply.plot import damplyplot
 from damply.utils import whose as whose_util
 from damply.utils.alias_group import AliasedGroup
-# from damply.cli.size import size 
+from damply.audit import DirectoryAudit
 
 click.rich_click.STYLE_OPTIONS_TABLE_BOX = 'SIMPLE'
 click.rich_click.STYLE_COMMANDS_TABLE_SHOW_LINES = True
@@ -26,8 +26,12 @@ click.rich_click.OPTION_GROUPS = {
 click.rich_click.COMMAND_GROUPS = {
     'damply': [
         {
-            'name': 'Subcommands',
-            'commands': ['plot', 'view', 'whose', 'log', 'config', 'init', 'size'],
+            'name': 'Info Commands',
+            'commands': ['view', 'whose', 'log', 'config', 'init', 'size'],
+        },
+        {
+            'name': 'Audit Commands',
+            'commands': ['audit', 'plot', ],
         }
     ]
 }
@@ -45,7 +49,13 @@ help_config = click.RichHelpConfiguration(
 )
 @click.version_option(__version__, prog_name='damply')
 def cli() -> None:
-    """A tool to interact with systems implementing the Data Management Plan (DMP) standard."""
+    """
+    A tool to interact with systems implementing the 
+    Data Management Plan (DMP) standard.
+    
+    This tool is meant to allow sys-admins to easily query and audit the metadata of their
+    projects.
+    """
     pass
 
 
@@ -312,6 +322,29 @@ def size(path: Path) -> None:
         f"The size of [bold magenta]{path}[/bold magenta] is [bold cyan]{size_dir}[/bold cyan]"
     )
     print(metadata)
+
+
+@cli.command(context_settings={'help_option_names': ['-h', '--help']})
+@click.argument(
+    'path',
+    type=click.Path(
+        exists=True,
+        path_type=Path,
+        file_okay=True,
+        dir_okay=True,
+        readable=True,
+    ),
+    default=Path().cwd(),
+)
+def audit(path: Path) -> None:
+    """Audit the metadata of a valid DMP Directory."""
+    try:
+        audit = DirectoryAudit.from_path(path)
+        print(audit)
+    except ValueError as e:
+        print(e)
+        return
+
 
 if __name__ == '__main__':
     cli()

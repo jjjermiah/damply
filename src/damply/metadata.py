@@ -36,23 +36,11 @@ class DMPMetadata:
     size: ByteSize = field(default=None, repr=False)
     size_measured_at: datetime.datetime = field(default=None, repr=False)
 
+
+
     @classmethod
     def from_path(cls: Type['DMPMetadata'], path: Path) -> 'DMPMetadata':
-        # if path is a directory, get the README file
-        if path.is_dir():
-            readmes = [f for f in path.glob('README*') if f.is_file()]
-            if len(readmes) == 0:
-                raise ValueError('No README file found.')
-            elif len(readmes) > 1:
-                print('Multiple README files found. Using the first one.')
-                readme = readmes[0]
-            else:
-                readme = readmes[0]
-        else:
-            readme = path
-
-        if 'README' not in readme.stem.upper():
-            raise ValueError('The file is not a README file.')
+        readme: Path = cls._find_readme(path)
 
         metadata = cls()
         metadata.path = readme.resolve().parent
@@ -66,6 +54,25 @@ class DMPMetadata:
         metadata.content = metadata.fields.pop('content', '')
 
         return metadata
+
+    @staticmethod
+    def _find_readme(path: Path) -> Path:
+        if path.is_dir():
+            readmes = [f for f in path.glob('README*') if f.is_file()]
+            if len(readmes) == 0:
+                raise ValueError('No README file found.')
+            elif len(readmes) > 1:
+                print('Multiple README files found. Using the first one.')
+                readme = readmes[0]
+            else:
+                readme = readmes[0]
+        else:
+            readme = path
+            
+        if 'README' not in readme.stem.upper():
+            raise ValueError('The file is not a README file.')
+        
+        return readme
 
     def _dirsize(self) -> ByteSize:
         size = get_directory_size(self.path)
