@@ -174,7 +174,7 @@ def config(path: Path, dry_run: bool) -> None:
 
     metadata.log_change('Updated fields in README file.')
 
-    if dry_run:
+    if not dry_run:
         metadata.write_to_file(config_path)
         console.print(metadata)
 
@@ -230,6 +230,7 @@ def init(path: Path) -> None:
         print(f'Error: {e}')
         return
 
+    new_metadata.write_to_file()
     console.print(new_metadata)
 
 

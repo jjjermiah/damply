@@ -46,14 +46,17 @@ class DirectoryAudit:
         c_time=datetime.fromtimestamp(stats.st_ctime, tz = timezone.utc),
       )
 
+    def format_date(self, date: datetime) -> str:
+      return date.strftime("%Y-%m-%d %H:%M:%S")
+
     def __rich_repr__(self) -> rich.repr.Result:
-        yield 'path', self.path
+        yield 'path', self.path.absolute()
         yield 'owner', self.owner
         yield 'full_name', self.full_name
         yield 'permissions', self.permissions
-        yield 'a_time', self.a_time
-        yield 'm_time', self.m_time
-        yield 'c_time', self.c_time
+        yield 'a_time', self.format_date(self.a_time)
+        yield 'm_time', self.format_date(self.m_time)
+        yield 'c_time', self.format_date(self.c_time)
 
 if __name__ == "__main__":
     audit = DirectoryAudit.from_path(Path("/cluster/projects/bhklab/projects/BTCIS"))
