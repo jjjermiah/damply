@@ -20,7 +20,7 @@ click.rich_click.COMMAND_GROUPS = {
     'damply': [
         {
             'name': 'Info Commands',
-            'commands': ['view', 'whose', 'log', 'config', 'init', 'size'],
+            'commands': ['view', 'whose', 'add-field', 'log', 'config', 'init', 'size'],
         },
         {
             'name': 'Audit Commands',

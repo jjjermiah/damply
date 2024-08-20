@@ -12,6 +12,7 @@ from damply.utils.alias_group import AliasedGroup
 from damply.cli.audit import audit
 from damply.cli.plot import plot
 from damply.cli.click_config import help_config
+from damply.cli.add_field import add_field
 
 @click.group(
     cls=AliasedGroup,
@@ -267,7 +268,7 @@ def size(path: Path) -> None:
 
 cli.add_command(audit)
 cli.add_command(plot)
-
+cli.add_command(add_field)
 
 if __name__ == '__main__':
     cli()

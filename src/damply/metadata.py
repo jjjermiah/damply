@@ -37,7 +37,6 @@ class DMPMetadata:
     size_measured_at: datetime.datetime = field(default=None, repr=False)
 
 
-
     @classmethod
     def from_path(cls: Type['DMPMetadata'], path: Path) -> 'DMPMetadata':
         readme: Path = cls._find_readme(path)
@@ -104,6 +103,21 @@ class DMPMetadata:
     def log_change(self, description: str) -> None:
         timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         self.logs.append(f'{timestamp}: {description}')
+
+    def add_field(self, field: str, value: str) -> None:
+        """Assuming the field is not already present, add it to the fields dict.
+        
+        If the field is already present, add the value to the existing field.
+
+        Args:
+            field (str): name of the field, i.e OWNER, DATE, DESC, STATUS
+            value (str): value of the field
+        """
+        field = field.upper()
+        if field in self.fields:
+            self.fields[field] += f' {value}'
+        else:
+            self.fields[field] = value
 
     def write_to_file(self, newpath: Path | None = None) -> None:
         newpath = newpath or self.readme
