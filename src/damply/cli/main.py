@@ -13,6 +13,7 @@ from damply.cli.audit import audit
 from damply.cli.plot import plot
 from damply.cli.click_config import help_config
 from damply.cli.add_field import add_field
+from damply.cli.init import init
 
 @click.group(
     cls=AliasedGroup,
@@ -180,59 +181,7 @@ def config(path: Path, dry_run: bool) -> None:
         console.print(metadata)
 
 
-@cli.command(context_settings={'help_option_names': ['-h', '--help']})
-@click.argument(
-    'path',
-    type=click.Path(
-        exists=True,
-        path_type=Path,
-        file_okay=False,
-        dir_okay=True,
-        readable=True,
-    ),
-    default=Path().cwd(),
-)
-@click.rich_config(help_config=help_config)
-def init(path: Path) -> None:
-    """Initialize a new README file."""
-    try:
-        metadata = DMPMetadata.from_path(path)
-        if metadata.readme.exists():
-            print(f'Error: README file already exists at {metadata.readme}')
-            return
-    except ValueError:
-        pass
 
-    from rich.console import Console
-
-    console = Console()
-    new_readme_path = path / 'README.md'
-    console.print(f'Creating a new README file at {new_readme_path}')
-
-    fields = {fld: '' for fld in MANDATORY_FIELDS}
-    # create the README file
-    for fld in MANDATORY_FIELDS:
-        while not fields[fld]:
-            print(f'[red]Field {fld} MUST be set.[/red]')
-            fields[fld] = console.input(f'Enter a value for {fld}: ')
-
-    new_metadata = DMPMetadata(
-        fields=fields,
-        content='',
-        path=path,
-        permissions='---------',
-        logs=[],
-        readme=new_readme_path,
-    )
-
-    try:
-        new_metadata.check_fields()
-    except ValueError as e:
-        print(f'Error: {e}')
-        return
-
-    new_metadata.write_to_file()
-    console.print(new_metadata)
 
 
 @cli.command(context_settings={'help_option_names': ['-h', '--help']})
@@ -269,6 +218,7 @@ def size(path: Path) -> None:
 cli.add_command(audit)
 cli.add_command(plot)
 cli.add_command(add_field)
+cli.add_command(init)
 
 if __name__ == '__main__':
     cli()
