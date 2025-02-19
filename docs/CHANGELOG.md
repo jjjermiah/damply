@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.9.0 (2024-08-20)
+
+### Feature
+
+* feat: field adding ([`b9780c5`](https://github.com/jjjermiah/damply/commit/b9780c512425fecd20cbe7b04991ae9b05e93480))
+
+### Fix
+
+* fix: minor updates ([`1a1d60c`](https://github.com/jjjermiah/damply/commit/1a1d60cabf9f3987cc4ac16a01e1cd6cc18afbd0))
+
 ## v0.8.0 (2024-08-01)
 
 ### Chore
